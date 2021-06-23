@@ -13,11 +13,15 @@ class TeleprompterController {
   }
 
   addFontSize() {
-    return teleprompter.addFontSize(5);
+    double size = getFontSize() + 5;
+    return teleprompter.setFontSize(size);
   }
 
   reduceFontSize() {
-    return teleprompter.reduceFontSize(5);
+    double size = getFontSize();
+    return size < 6
+        ? teleprompter.setFontSize(1.0)
+        : teleprompter.setFontSize(size - 5);
   }
 
   getFontSize() {
@@ -25,11 +29,15 @@ class TeleprompterController {
   }
 
   addSpeedText() {
-    return teleprompter.addSpeedText(5);
+    int speed = getSpeedText() + 5;
+    return teleprompter.setSpeedText(speed);
   }
 
   reduceSpeedText() {
-    return teleprompter.reduceSpeedText(5);
+    int speed = getSpeedText();
+    speed < 6
+        ? teleprompter.setSpeedText(1)
+        : teleprompter.setSpeedText(speed - 5);
   }
 
   getSpeedText() {
@@ -40,11 +48,14 @@ class TeleprompterController {
     return teleprompter.getDuration();
   }
 
-  scrollText() {
-    return teleprompter.scrollText();
-  }
-
   getScrollController() {
     return teleprompter.getScrollController();
+  }
+
+  scrollText() {
+    return teleprompter.scrollController.animateTo(
+        teleprompter.scrollController.position.maxScrollExtent,
+        duration: Duration(seconds: getDuration()),
+        curve: Curves.linear);
   }
 }
