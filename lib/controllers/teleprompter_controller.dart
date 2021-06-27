@@ -53,9 +53,8 @@ class TeleprompterController {
   }
 
   scrollText() {
-    return teleprompter.scrollController.animateTo(
-        teleprompter.scrollController.position.maxScrollExtent,
-        duration: Duration(seconds: getDuration()),
-        curve: Curves.linear);
+    ScrollController scroll = teleprompter.getScrollController();
+    return scroll.animateTo(scroll.position.maxScrollExtent,
+        duration: Duration(seconds: getDuration()), curve: Curves.linear);
   }
 }
